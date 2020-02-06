@@ -154,6 +154,8 @@ npm_node_modules() {
       fi
       monitor "npm-install" npm install --production="$production" --unsafe-perm --userconfig "$build_dir/.npmrc" 2>&1
     fi
+    echo "Verify and garbage collect npm cache"
+    monitor "npm cache verify" npm cache verify 2>&1
   else
     echo "Skipping (no package.json)"
   fi
@@ -173,6 +175,8 @@ npm_rebuild() {
       echo "Installing any new modules (package.json)"
     fi
     monitor "npm-rebuild" npm install --production="$production" --unsafe-perm --userconfig "$build_dir/.npmrc" 2>&1
+    echo "Verify and garbage collect npm cache"
+    monitor "npm cache verify" npm cache verify 2>&1
   else
     echo "Skipping (no package.json)"
   fi
